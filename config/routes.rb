@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   get "dashboard/show"
   root "dashboard#show"
+  get "profile", to: "users#profile", as: :profile
+  patch "profile", to: "users#update_profile"
   resource :session
   resources :passwords, param: :token
   resources :users, only: %i[new create]

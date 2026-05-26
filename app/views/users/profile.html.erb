@@ -1,0 +1,9 @@
+<h1>Users#profile</h1>
+<p>Find me in app/views/users/profile.html.erb</p>
+<%= form_with model: @user, url: profile_path, method: :patch do |form| %>
+  <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", value: @user.email_address, disabled: true %><br>
+  <%= form.select :time_zone, @time_zones, { include_blank: true }, required: true, autocomplete: "timezone", placeholder: "Select your timezone" %><br>
+  <%= form.submit "Update Profile" %>
+<% end %>
+<br>
+<%= link_to "Back to Dashboard", root_path %>
