@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  diagnosis: one
+  diagnosed_on: 2026-05-26
+  notes: MyText
+
+two:
+  user: two
+  diagnosis: two
+  diagnosed_on: 2026-05-26
+  notes: MyText
