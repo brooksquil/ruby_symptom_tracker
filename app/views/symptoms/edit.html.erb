@@ -1,0 +1,18 @@
+<h1>Edit Symptom</h1>
+
+<% if @symptom.errors.any? %>
+  <div style="color: red">
+    <p>We could not update this symptom:</p>
+    <ul>
+      <% @symptom.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with model: @symptom, url: symptom_path(@symptom), method: :patch do |form| %>
+  <%= form.text_field :name, required: true, autofocus: true, autocomplete: "symptom", placeholder: "Enter symptom name" %><br>
+  <%= form.submit "Update Symptom" %>
+<% end %>
+<%= link_to "Back to Symptoms", symptoms_path %>
