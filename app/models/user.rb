@@ -5,6 +5,10 @@ class User < ApplicationRecord
   validates :password_confirmation, presence: true, if: -> { password.present? }
   has_many :sessions, dependent: :destroy
   has_many :symptoms, dependent: :destroy
+  # user.rb
+  has_many :diagnoses, dependent: :destroy
+  has_many :user_diagnoses, dependent: :destroy
+  has_many :selected_diagnoses, through: :user_diagnoses, source: :diagnosis
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 end

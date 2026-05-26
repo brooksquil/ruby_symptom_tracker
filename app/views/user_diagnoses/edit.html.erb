@@ -1,0 +1,19 @@
+<h1>Edit <%= @user_diagnosis.diagnosis.name %></h1>
+
+<% if @user_diagnosis.errors.any? %>
+  <div style="color: red">
+    <p>We could not update this diagnosis:</p>
+    <ul>
+      <% @user_diagnosis.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with model: @user_diagnosis, url: user_diagnosis_path(@user_diagnosis), method: :patch do |form| %>
+  <%= form.date_field :diagnosed_on, autocomplete: "diagnosed-on" %><br>
+  <%= form.text_area :notes, autocomplete: "notes", placeholder: "Enter notes" %><br>
+  <%= form.submit "Update User Diagnosis" %>
+<% end %>
+<%= link_to "Back to Diagnoses", diagnoses_path %>

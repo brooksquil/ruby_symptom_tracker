@@ -96,6 +96,52 @@ global_symptoms = [
   "Wheezing"
 ]
 
+global_diagnoses = [
+  "Ankylosing spondylitis",
+  "Asthma",
+  "Celiac disease",
+  "Chronic bronchitis",
+  "Chronic fatigue syndrome",
+  "Chronic kidney disease",
+  "Chronic migraine",
+  "Chronic obstructive pulmonary disease (COPD)",
+  "Crohn's disease",
+  "Diabetes",
+  "Dysautonomia",
+  "Ehlers-Danlos syndrome",
+  "Endometriosis",
+  "Fibromyalgia",
+  "Gastroparesis",
+  "Hashimoto's thyroiditis",
+  "Heart disease",
+  "Idiopathic Intracranial Hypertension (IIH)",
+  "Inflammatory bowel disease",
+  "Interstitial cystitis",
+  "Irritable bowel syndrome",
+  "Liver disease",
+  "Long COVID",
+  "Mast cell activation syndrome (MCAS)",
+  "Migraine",
+  "Multiple sclerosis",
+  "Myalgic encephalomyelitis/chronic fatigue syndrome (ME/CFS)",
+  "Parkinson's disease",
+  "Polycystic ovary syndrome (PCOS)",
+  "Postural orthostatic tachycardia syndrome (POTS)",
+  "Psoriasis",
+  "Rheumatoid arthritis",
+  "Scleroderma",
+  "Systemic lupus erythematosus",
+  "Thyroid disease",
+  "Ulcerative colitis",
+  "Cerebrospinal fluid leak"
+]
+global_diagnoses.uniq.each do |name|
+  normalized_name = name.strip.downcase
+  diagnosis = Diagnosis.find_or_initialize_by(user_id: nil, normalized_name: normalized_name)
+  diagnosis.name = name
+  diagnosis.save!
+end
+
 global_symptoms.uniq.each do |name|
   normalized_name = name.strip.downcase
   symptom = Symptom.find_or_initialize_by(user_id: nil, normalized_name: normalized_name)

@@ -1,0 +1,55 @@
+<h1>Diagnoses</h1>
+
+<h2>Add a custom diagnosis</h2>
+<% if @diagnosis.errors.any? %>
+  <div style="color: red">
+    <p>We could not add this diagnosis:</p>
+    <ul>
+      <% @diagnosis.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with model: @diagnosis, url: diagnoses_path do |form| %>
+  <%= form.text_field :name, required: true, autofocus: true, autocomplete: "diagnosis", placeholder: "Enter diagnosis name" %>
+  <%= form.submit "Add Diagnosis" %>
+<% end %>
+
+<h2>My diagnoses</h2>
+<ul>
+  <% @user_diagnoses.each do |user_diagnosis| %>
+    <li>
+      <%= user_diagnosis.diagnosis.name %>
+      <% if user_diagnosis.diagnosed_on.present? %>
+        (diagnosed <%= user_diagnosis.diagnosed_on %>)
+      <% end %>
+      <%= link_to "Edit details", edit_user_diagnosis_path(user_diagnosis) %>
+      <%= link_to "Remove", user_diagnosis_path(user_diagnosis), data: { turbo_method: :delete, turbo_confirm: "Remove this diagnosis from your list?" } %>
+    </li>
+  <% end %>
+</ul>
+
+<h2>Common diagnoses</h2>
+<ul>
+  <% @global_diagnoses.each do |diagnosis| %>
+    <li>
+      <%= diagnosis.name %>
+      <%= button_to "Add to my diagnoses", user_diagnoses_path, params: { user_diagnosis: { diagnosis_id: diagnosis.id } } %>
+    </li>
+  <% end %>
+</ul>
+
+<h2>My custom diagnoses</h2>
+<ul>
+  <% @custom_diagnoses.each do |diagnosis| %>
+    <li>
+      <%= diagnosis.name %>
+      <%= link_to "Edit name", edit_diagnosis_path(diagnosis) %>
+      <%= link_to "Delete", diagnosis_path(diagnosis), data: { turbo_method: :delete, turbo_confirm: "Delete this custom diagnosis?" } %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "Back to Dashboard", root_path %>
