@@ -4,7 +4,7 @@ class User < ApplicationRecord
   validates :password, length: { minimum: 8, maximum: 72 }, allow_nil: true
   validates :password_confirmation, presence: true, if: -> { password.present? }
   has_many :sessions, dependent: :destroy
-
+  has_many :symptoms, dependent: :destroy
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 end
